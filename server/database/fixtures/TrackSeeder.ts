@@ -11,8 +11,8 @@ class TrackSeeder extends AbstractSeeder {
 			const nbTracks = Math.floor(Math.random() * 8) + 8;
 			for (let i = 0; i < nbTracks; i++) {
 				const fakeTrack = {
-					name: this.faker.music.songName(),
-					album_id: this.getRef(`album_${nbTracks}`),
+					title: this.faker.music.songName(),
+					album_id: this.getRef(`album_${index}`).insertId,
 				};
 				this.insert(fakeTrack);
 			}

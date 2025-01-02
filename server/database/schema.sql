@@ -19,7 +19,7 @@ USE `tuneApp` ;
 -- Table `tuneApp`.`User`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tuneApp`.`User` (
-  `id` INT NOT NULL,
+  `id` INT AUTO_INCREMENT NOT NULL,
   `email` VARCHAR(125) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
@@ -31,14 +31,14 @@ ENGINE = InnoDB;
 -- Table `tuneApp`.`Album`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tuneApp`.`Album` (
-  `id` INT NOT NULL,
+  `id` INT AUTO_INCREMENT NOT NULL,
   `title` VARCHAR(85) NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `User_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Album_User_idx` (`User_id` ASC) VISIBLE,
+  INDEX `fk_Album_user_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_Album_User`
-    FOREIGN KEY (`User_id`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `tuneApp`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -49,13 +49,13 @@ ENGINE = InnoDB;
 -- Table `tuneApp`.`Track`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tuneApp`.`Track` (
-  `id` INT NOT NULL,
+  `id` INT AUTO_INCREMENT NOT NULL,
   `title` VARCHAR(85) NOT NULL,
-  `Album_id` INT NOT NULL,
+  `album_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Track_Album1_idx` (`Album_id` ASC) VISIBLE,
+  INDEX `fk_Track_Album1_idx` (`album_id` ASC) VISIBLE,
   CONSTRAINT `fk_Track_Album1`
-    FOREIGN KEY (`Album_id`)
+    FOREIGN KEY (`album_id`)
     REFERENCES `tuneApp`.`Album` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -66,7 +66,7 @@ ENGINE = InnoDB;
 -- Table `tuneApp`.`Artist`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tuneApp`.`Artist` (
-  `id` INT NOT NULL,
+  `id` INT AUTO_INCREMENT NOT NULL,
   `name` VARCHAR(125) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;

@@ -8,4 +8,8 @@ const router = express.Router();
 
 /* ************************************************************************* */
 
+import albumActions from "./modules/album/albumActions";
+
+router.post("/api/albums", albumActions.addAlbum);
+
 export default router;

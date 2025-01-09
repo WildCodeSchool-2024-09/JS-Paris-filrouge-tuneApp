@@ -11,5 +11,6 @@ const router = express.Router();
 import albumActions from "./modules/album/albumActions";
 
 router.post("/api/albums", albumActions.addAlbum);
+router.get("/api/albums/:id", albumActions.browseAlbum);
 
 export default router;

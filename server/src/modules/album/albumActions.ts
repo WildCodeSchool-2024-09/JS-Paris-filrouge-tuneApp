@@ -1,5 +1,18 @@
 import AlbumRepository from "./AlbumRepository";
 
+const browseAlbum = async (req, res) => {
+  try {
+    const albumId = req.params.id;
+    const [result] = await AlbumRepository.readAlbumById(albumId);
+
+    if (result.length > 0) res.status(200).json(result)
+    else res.sendStatus(404)
+  }
+  catch (error) {
+    res.sendStatus(500);
+  }
+}
+
 const addAlbum = async (req, res) => {
   try {
     const album = req.body;
@@ -12,4 +25,4 @@ const addAlbum = async (req, res) => {
   }
 }
 
-export default { addAlbum };
+export default { addAlbum, browseAlbum };

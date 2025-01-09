@@ -1,11 +1,15 @@
+import TrackRepository from "../track/TrackRepository";
 import AlbumRepository from "./AlbumRepository";
 
 const browseAlbum = async (req, res) => {
   try {
     const albumId = req.params.id;
-    const [result] = await AlbumRepository.readAlbumById(albumId);
+    const [[album]] = await AlbumRepository.readAlbumById(albumId);
+    const [tracks] = await TrackRepository.readTracksByAlbumId(albumId);
 
-    if (result.length > 0) res.status(200).json(result)
+    album.tracks = tracks;
+
+    if (album) res.status(200).json(album)
     else res.sendStatus(404)
   }
   catch (error) {

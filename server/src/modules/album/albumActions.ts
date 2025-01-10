@@ -1,4 +1,21 @@
+import TrackRepository from "../track/TrackRepository";
 import AlbumRepository from "./AlbumRepository";
+
+const browseAlbum = async (req, res) => {
+  try {
+    const albumId = req.params.id;
+    const [[album]] = await AlbumRepository.readAlbumById(albumId);
+    const [tracks] = await TrackRepository.readTracksByAlbumId(albumId);
+
+    album.tracks = tracks;
+
+    if (album) res.status(200).json(album)
+    else res.sendStatus(404)
+  }
+  catch (error) {
+    res.sendStatus(500);
+  }
+}
 
 const addAlbum = async (req, res) => {
   try {
@@ -12,4 +29,4 @@ const addAlbum = async (req, res) => {
   }
 }
 
-export default { addAlbum };
+export default { addAlbum, browseAlbum };

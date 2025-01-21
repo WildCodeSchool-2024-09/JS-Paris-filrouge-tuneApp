@@ -1,15 +1,10 @@
 import db from "../../../database/client";
-import { Result, Rows } from "../../../database/client";
-
-type Track = {
-  title: string,
-  album_id: number,
-}
+import type { Rows } from "../../../database/client";
 
 class TrackRepository {
-    readTracksByAlbumId(albumId: number) {
-        return db.query("SELECT * FROM track WHERE album_id = ?", [albumId]);
-      }
+	readTracksByAlbumId(albumId: number) {
+		return db.query<Rows>("SELECT * FROM track WHERE album_id = ?", [albumId]);
+	}
 }
 
 export default new TrackRepository();

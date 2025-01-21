@@ -113,8 +113,8 @@ const logErrors: ErrorRequestHandler = (err, req, res, next) => {
   console.error(err);
   console.error("on req:", req.method, req.path);
 
-  // Pass the error to the next middleware in the stack
-  next(err);
+  // send error response (this is the last middleware)
+  res.sendStatus(500);
 };
 
 // Mount the logErrors middleware globally

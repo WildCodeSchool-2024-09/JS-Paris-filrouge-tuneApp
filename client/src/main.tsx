@@ -1,5 +1,4 @@
 // Import necessary modules from React and React Router
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
@@ -8,9 +7,10 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Import the main app component
 import App from "./App";
 import Dashboard from "./pages/Dashboard";
-import Album from "./pages/Album";
+import Albums from "./pages/Albums";
 import AlbumDetails from "./pages/AlbumDetails";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -33,16 +33,20 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/albums",
-        element: <Album />,
+        element: <Albums />,
       },
       {
-        path: "/albums/:id",
+        path: "/dashboard/albums/:id",
         element: <AlbumDetails />,
       },
       {
         path: "/register",
         element: <Register />,
       },
+      {
+        path: "/login",
+        element: <Login />
+      }
     ],
   },
   // Try adding a new route! For example, "/about" with an About component

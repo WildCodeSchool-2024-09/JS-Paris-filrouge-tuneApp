@@ -1,36 +1,36 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
+import type { AppContextInterface } from "../types/appContext.type";
+import type { Album } from "../types/album.type";
+import albumService from "../services/album.service";
 
 function AlbumDetails() {
-  const [album, setAlbum] = useState();
-  const { id } = useParams();
+	const [album, setAlbum] = useState<Album>();
+	const { id } = useParams();
+	const { user } = useOutletContext<AppContextInterface>();
 
-  const getAlbumDetails = async () => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/albums/${id}`,
-      );
+	useEffect(() => {
+		const getAlbumDetails = async () => {
+			try {
+				const res = await albumService.getAlbumDetails(user, Number(id));
+				setAlbum(await res.json());
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getAlbumDetails();
+	}, [id, user]);
 
-      setAlbum(await res.json());
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getAlbumDetails();
-  }, []);
-
-  return (
-    <>
-      <h1>{album?.title}</h1>
-      <ul>
-        {album?.tracks.map((track, index) => (
-          <li key={index}>{track.title}</li>
-        ))}
-      </ul>
-    </>
-  );
+	return (
+		<>
+			<h1>{album?.title}</h1>
+			<ul>
+				{album?.tracks.map((track) => (
+					<li key={track.id}>{track.title}</li>
+				))}
+			</ul>
+		</>
+	);
 }
 
 export default AlbumDetails;

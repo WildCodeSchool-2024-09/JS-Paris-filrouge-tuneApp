@@ -1,9 +1,10 @@
 import TrackRepository from "../track/TrackRepository";
 import AlbumRepository from "./AlbumRepository";
+import type { Request, Response, NextFunction } from "express";
 
-const browseAlbum = async (req, res) => {
+const browseAlbum = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const albumId = req.params.id;
+    const albumId = Number(req.params.id);
     const [[album]] = await AlbumRepository.readAlbumById(albumId);
     const [tracks] = await TrackRepository.readTracksByAlbumId(albumId);
 
@@ -13,19 +14,18 @@ const browseAlbum = async (req, res) => {
     else res.sendStatus(404)
   }
   catch (error) {
-    res.sendStatus(500);
+    next(error);
   }
 }
 
-const addAlbum = async (req, res) => {
+const addAlbum = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const album = req.body;
     const [result] = await AlbumRepository.createAlbum(album);
-    if (result.insertId) res.sendStatus(201);
+    if (result.insertId) res.status(201).json(result.insertId);
     else res.sendStatus(400);
   } catch (error) {
-    res.sendStatus(500);
-    console.error(error);
+    next(error);
   }
 }
 

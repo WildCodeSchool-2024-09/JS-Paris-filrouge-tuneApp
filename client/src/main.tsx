@@ -10,6 +10,7 @@ import App from "./App";
 import Dashboard from "./pages/Dashboard";
 import Album from "./pages/Album";
 import AlbumDetails from "./pages/AlbumDetails";
+import Register from "./pages/Register";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/albums/:id",
         element: <AlbumDetails />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },

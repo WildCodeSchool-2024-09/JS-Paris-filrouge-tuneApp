@@ -1,6 +1,6 @@
+import type { Request, Response, NextFunction } from "express";
 import TrackRepository from "../track/TrackRepository";
 import AlbumRepository from "./AlbumRepository";
-import type { Request, Response, NextFunction } from "express";
 
 const browseAlbum = async (req: Request, res: Response, next: NextFunction) => {
 	try {

@@ -9,15 +9,15 @@ import {
 /* ************************************************************************* */
 
 // Import the main app component
+import { type ReactNode, useContext, useEffect } from "react";
 import App from "./App";
-import Dashboard from "./pages/Dashboard";
-import Albums from "./pages/Albums";
-import AlbumDetails from "./pages/AlbumDetails";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import { useContext, useEffect, type ReactNode } from "react";
 import Auth from "./context/auth";
 import type { authContextType } from "./context/auth";
+import AlbumDetails from "./pages/AlbumDetails";
+import Albums from "./pages/Albums";
+import Dashboard from "./pages/Dashboard";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -32,8 +32,6 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		console.log(auth);
-
 		if (!auth?.isLoading) {
 			if (!auth?.user) navigate("/login");
 		}

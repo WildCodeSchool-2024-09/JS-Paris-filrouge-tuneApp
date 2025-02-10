@@ -9,9 +9,9 @@ const router = express.Router();
 /* ************************************************************************* */
 
 import albumActions from "./modules/album/albumActions";
-import userActions from "./modules/user/userActions";
 import authActions from "./modules/auth/authActions";
 import authServices from "./modules/auth/authServices";
+import userActions from "./modules/user/userActions";
 
 // public routes
 router.post("/api/users", authServices.hash, userActions.add);

@@ -1,6 +1,6 @@
 import argon from "argon2";
-import jwt from "jsonwebtoken";
 import type { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 import type { Secret } from "jsonwebtoken";
 
 const hash = async (req: Request, res: Response, next: NextFunction) => {

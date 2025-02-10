@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import type { Album } from "../types/album.type";
-import albumService from "../services/album.service";
 import Auth from "../context/auth";
 import type { authContextType } from "../context/auth";
+import albumService from "../services/album.service";
+import type { Album } from "../types/album.type";
 import type { User } from "../types/user.type";
 
 function AlbumDetails() {
@@ -20,7 +20,7 @@ function AlbumDetails() {
 				);
 				setAlbum(await res.json());
 			} catch (error) {
-				console.log(error);
+				console.error(error);
 			}
 		};
 		getAlbumDetails();

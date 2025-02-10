@@ -1,9 +1,9 @@
-import userRepository from "../user/userRepository";
 import argon from "argon2";
-import jwt from "jsonwebtoken";
 import type { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 import type { Secret } from "jsonwebtoken";
 import type { User } from "../../types/user.type";
+import userRepository from "../user/userRepository";
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
 	const { email, password } = req.body;

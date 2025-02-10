@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import type { FormEventHandler } from "react";
+import { useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
 
 function Register() {

@@ -5,9 +5,9 @@ import {
 	useMemo,
 	useState,
 } from "react";
+import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import type { ReactNode } from "react";
 import type { User } from "../../../server/src/types/user.type";
 import authService from "../services/auth.service";
 
@@ -37,8 +37,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 				);
 				const token = response.headers.get("Authorization");
 				const user = await response.json();
-				console.log(token, user);
-
 				user.token = token;
 				setUser(user);
 				setIsLoading(false);

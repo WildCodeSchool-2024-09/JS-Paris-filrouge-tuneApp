@@ -1,15 +1,13 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Auth from "../context/auth";
 import type { authContextType } from "../context/auth";
-import { Link } from "react-router-dom";
 
 const Nav = () => {
 	const auth = useContext(Auth) as authContextType;
 	const [showLogout, setShowLogout] = useState(false);
 
 	useEffect(() => {
-		console.log(auth);
-
 		if (auth?.user) setShowLogout(true);
 		else setShowLogout(false);
 	}, [auth]);

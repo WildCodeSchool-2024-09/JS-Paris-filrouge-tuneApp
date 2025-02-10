@@ -1,6 +1,6 @@
 import db from "../../../database/client";
-import type { Album } from "../../types/album.type";
 import type { Rows, Result } from "../../../database/client";
+import type { Album } from "../../types/album.type";
 
 class AlbumRepository {
 	readAlbumById(id: number) {

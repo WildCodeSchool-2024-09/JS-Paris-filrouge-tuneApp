@@ -1,8 +1,8 @@
 import "./App.css";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { AuthProvider } from "./context/auth";
 import Nav from "./components/Nav";
+import { AuthProvider } from "./context/auth";
 
 function App() {
 	return (

@@ -5,21 +5,28 @@ import type { authContextType } from "../context/auth";
 
 const Nav = () => {
 	const auth = useContext(Auth) as authContextType;
-	const [showLogout, setShowLogout] = useState(false);
+	const [isAuth, setIsAuth] = useState(false);
 
 	useEffect(() => {
-		if (auth?.user) setShowLogout(true);
-		else setShowLogout(false);
+		if (auth?.user) setIsAuth(true);
+		else setIsAuth(false);
 	}, [auth]);
 
 	return (
 		<nav>
-			<Link to="/dashboard">Mon dashboard</Link>
-			<Link to="/dashboard/albums">Mes albums</Link>
-			{showLogout && (
-				<button type="button" onClick={auth?.logout}>
-					Se déconnecter
-				</button>
+			{isAuth ? (
+				<>
+					<Link to="/dashboard">Mon dashboard</Link>
+					<Link to="/dashboard/albums">Mes albums</Link>
+					<button type="button" onClick={auth?.logout}>
+						Se déconnecter
+					</button>
+				</>
+			) : (
+				<>
+					<Link to="/login">Login</Link>
+					<Link to="/register">Register</Link>
+				</>
 			)}
 		</nav>
 	);

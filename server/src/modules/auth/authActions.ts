@@ -23,7 +23,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 					{ id: user.id },
 					process.env.APP_SECRET as Secret,
 					{
-						expiresIn: "1m",
+						expiresIn: "30d",
 					},
 				);
 				user.token = token;

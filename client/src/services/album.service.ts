@@ -5,6 +5,7 @@ const getAlbumDetails = async (user: User, id: number) => {
 		headers: {
 			authorization: user.token,
 		},
+    credentials: "include"
 	});
 };
 
@@ -15,6 +16,7 @@ const postAlbum = async (user: User, title: string) => {
 			"Content-Type": "application/json",
 			authorization: user.token,
 		},
+    credentials: "include",
 		body: JSON.stringify({
 			title,
 			user_id: user.id,

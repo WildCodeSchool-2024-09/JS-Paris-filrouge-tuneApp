@@ -1,20 +1,22 @@
-import { useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AlbumForm from "../components/AlbumForm";
 import type { FormEventHandler } from "react";
-import type { AppContextInterface } from "../types/appContext.type";
 import albumService from "../services/album.service";
+import Auth from "../context/auth";
+import type { authContextType } from "../context/auth";
+import type { User } from "../types/user.type";
 
 function Albums() {
   const navigate = useNavigate()
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
-  const { user } = useOutletContext<AppContextInterface>();
+  const { user } = useContext(Auth) as authContextType;
 
   const submitAlbum : FormEventHandler = async (event) => {
     event.preventDefault();
     try {
-      const result = await albumService.postAlbum(user, title)
+      const result = await albumService.postAlbum(user as User, title)
 
       if (result.status === 201) {
         const albumId = await result.json();

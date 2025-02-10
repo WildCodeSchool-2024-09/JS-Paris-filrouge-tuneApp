@@ -16,6 +16,8 @@ import authServices from "./modules/auth/authServices";
 // public routes
 router.post("/api/users", authServices.hash, userActions.add);
 router.post("/api/login", authActions.login);
+router.get("/api/refresh", authActions.refresh);
+router.get("/api/logout", authActions.logout);
 router.get("/api/albums/:id", albumActions.browseAlbum);
 
 // apply auth middlewares for all followings routes

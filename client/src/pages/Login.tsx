@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import type { FormEventHandler } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
-import type { AppContextInterface } from "../types/appContext.type";
+import { useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
+import Auth from "../context/auth";
+import type { authContextType } from '../context/auth';
 
 
 function Login() {
@@ -10,7 +11,7 @@ function Login() {
 	const passwordRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { setUser } = useOutletContext<AppContextInterface>();
+  const auth = useContext(Auth) as authContextType;
 
   const submitLogin : FormEventHandler = async (event) => {
 			event.preventDefault();
@@ -24,7 +25,7 @@ function Login() {
         if (response.status === 200) {
           const user = await response.json();
           console.log(user);
-          setUser(user);
+          auth?.setUser(user);
           navigate("/dashboard"); 
         }
         else setError("Veuillez remplir tout les champs.");

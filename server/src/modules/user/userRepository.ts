@@ -11,6 +11,10 @@ class UserRepository {
     return db.query<Rows>("SELECT * FROM User WHERE email = ?", [email]);
   }
 
+  read(id: number) {
+    return db.query<Rows>("SELECT * FROM User WHERE id = ?", [id]);
+  }
+
 }
 
 export default new UserRepository();

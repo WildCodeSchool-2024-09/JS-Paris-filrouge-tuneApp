@@ -1,6 +1,10 @@
 // Import necessary modules from React and React Router
 import { createRoot } from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+	RouterProvider,
+	createBrowserRouter,
+	useNavigate,
+} from "react-router-dom";
 
 /* ************************************************************************* */
 
@@ -11,6 +15,9 @@ import Albums from "./pages/Albums";
 import AlbumDetails from "./pages/AlbumDetails";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import { useContext, useEffect, type ReactNode } from "react";
+import Auth from "./context/auth";
+import type { authContextType } from "./context/auth";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -20,36 +27,64 @@ import Login from "./pages/Login";
 
 /* ************************************************************************* */
 
+const PrivateRoute = ({ children }: { children: ReactNode }) => {
+	const auth = useContext(Auth) as authContextType;
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		console.log(auth);
+
+		if (!auth?.isLoading) {
+			if (!auth?.user) navigate("/login");
+		}
+	}, [auth, auth?.user, auth?.isLoading, navigate]);
+
+	if (!auth?.isLoading && auth?.user) return children;
+	return "...loading";
+};
+
 // Create router configuration with routes
 // You can add more routes as you build out your app!
 const router = createBrowserRouter([
-  {
-    path: "/", // The root path
-    element: <App />, // Renders the App component for the home page
-    children: [
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "/dashboard/albums",
-        element: <Albums />,
-      },
-      {
-        path: "/dashboard/albums/:id",
-        element: <AlbumDetails />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
-      },
-      {
-        path: "/login",
-        element: <Login />
-      }
-    ],
-  },
-  // Try adding a new route! For example, "/about" with an About component
+	{
+		path: "/", // The root path
+		element: <App />, // Renders the App component for the home page
+		children: [
+			{
+				path: "/dashboard",
+				element: (
+					<PrivateRoute>
+						<Dashboard />
+					</PrivateRoute>
+				),
+			},
+			{
+				path: "/dashboard/albums",
+				element: (
+					<PrivateRoute>
+						<Albums />
+					</PrivateRoute>
+				),
+			},
+			{
+				path: "/dashboard/albums/:id",
+				element: (
+					<PrivateRoute>
+						<AlbumDetails />
+					</PrivateRoute>
+				),
+			},
+			{
+				path: "/register",
+				element: <Register />,
+			},
+			{
+				path: "/login",
+				element: <Login />,
+			},
+		],
+	},
+	// Try adding a new route! For example, "/about" with an About component
 ]);
 
 /* ************************************************************************* */
@@ -57,11 +92,13 @@ const router = createBrowserRouter([
 // Find the root element in the HTML document
 const rootElement = document.getElementById("root");
 if (rootElement == null) {
-  throw new Error(`Your HTML Document should contain a <div id="root"></div>`);
+	throw new Error(`Your HTML Document should contain a <div id="root"></div>`);
 }
 
 // Render the app inside the root element
-createRoot(rootElement).render(<RouterProvider router={router} />);
+createRoot(rootElement).render(
+	<RouterProvider router={router} />,
+);
 
 /**
  * Helpful Notes:

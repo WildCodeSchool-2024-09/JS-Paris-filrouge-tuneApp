@@ -9,10 +9,10 @@ class AlbumRepository {
 
 	createAlbum(album: Album) {
 		const { title, user_id } = album;
-		return db.query<Result>("INSERT INTO album (title, user_id) VALUES (?, ?)", [
-			title,
-			user_id,
-		]);
+		return db.query<Result>(
+			"INSERT INTO album (title, user_id) VALUES (?, ?)",
+			[title, user_id],
+		);
 	}
 }
 

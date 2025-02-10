@@ -31,7 +31,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 					.cookie("refreshToken", refreshToken, {
 						httpOnly: true,
 						sameSite: "lax",
-            secure: process.env.ENVIRONMENT === "prod"
+						secure: process.env.ENVIRONMENT === "prod",
 					})
 					.status(200)
 					.json(user);
@@ -47,18 +47,20 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
 		const { refreshToken } = req.cookies;
 		if (!refreshToken) {
 			res.status(401).send("Access Denied. No refresh token provided.");
-      return;
+			return;
 		}
-		const decoded = <Partial<User>>(jwt.verify(refreshToken, process.env.APP_SECRET as Secret));
+		const decoded = <Partial<User>>(
+			jwt.verify(refreshToken, process.env.APP_SECRET as Secret)
+		);
 		const accessToken = jwt.sign(
-			{ id: decoded.id},
+			{ id: decoded.id },
 			process.env.APP_SECRET as Secret,
 			{
 				expiresIn: "1h",
 			},
 		);
-    const [[user]] = await userRepository.read(decoded.id as number);
-    res.header("Authorization", accessToken).json(user);
+		const [[user]] = await userRepository.read(decoded.id as number);
+		res.header("Authorization", accessToken).json(user);
 	} catch (error) {
 		next(error);
 	}

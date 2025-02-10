@@ -14,7 +14,10 @@ function AlbumDetails() {
 	useEffect(() => {
 		const getAlbumDetails = async () => {
 			try {
-				const res = await albumService.getAlbumDetails(user as User, Number(id));
+				const res = await albumService.getAlbumDetails(
+					user as User,
+					Number(id),
+				);
 				setAlbum(await res.json());
 			} catch (error) {
 				console.log(error);

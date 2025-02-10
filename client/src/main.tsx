@@ -96,9 +96,7 @@ if (rootElement == null) {
 }
 
 // Render the app inside the root element
-createRoot(rootElement).render(
-	<RouterProvider router={router} />,
-);
+createRoot(rootElement).render(<RouterProvider router={router} />);
 
 /**
  * Helpful Notes:

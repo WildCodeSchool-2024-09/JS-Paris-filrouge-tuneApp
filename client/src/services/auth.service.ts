@@ -15,7 +15,7 @@ const login = async (email: string, password: string) => {
 	return fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
-    credentials: "include",
+		credentials: "include",
 		body: JSON.stringify({
 			email,
 			password,
@@ -25,7 +25,7 @@ const login = async (email: string, password: string) => {
 
 const logout = async () => {
 	return fetch(`${import.meta.env.VITE_API_URL}/api/logout`, {
-    credentials: "include"
+		credentials: "include",
 	});
 };
 

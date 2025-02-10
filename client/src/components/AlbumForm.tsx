@@ -1,11 +1,22 @@
-function AlbumForm({setTitle, submitAlbum}) {
+import type { FormEventHandler } from "react";
 
-  return (
-    <form onSubmit={submitAlbum}>
-      <input type="text" onInput={(e) => setTitle(e.target.value)}  placeholder="Entrez un titre d'album"/>
-      <button type="submit">Ajouter</button>
-    </form>
-  )
+function AlbumForm({
+	setTitle,
+	submitAlbum,
+}: {
+	setTitle: React.Dispatch<React.SetStateAction<string>>;
+	submitAlbum: FormEventHandler;
+}) {
+	return (
+		<form onSubmit={submitAlbum}>
+			<input
+				type="text"
+				onInput={(e) => setTitle((e.target as HTMLInputElement).value)}
+				placeholder="Entrez un titre d'album"
+			/>
+			<button type="submit">Ajouter</button>
+		</form>
+	);
 }
 
 export default AlbumForm;

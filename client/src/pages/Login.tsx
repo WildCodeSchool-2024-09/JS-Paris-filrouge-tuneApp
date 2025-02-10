@@ -1,38 +1,37 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import type { FormEventHandler } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
-import type { AppContextInterface } from "../types/appContext.type";
+import { useNavigate } from "react-router-dom";
+import Auth from "../context/auth";
+import type { authContextType } from "../context/auth";
 import authService from "../services/auth.service";
-
 
 function Login() {
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const { setUser } = useOutletContext<AppContextInterface>();
+	const [error, setError] = useState("");
+	const navigate = useNavigate();
+	const auth = useContext(Auth) as authContextType;
 
-  const submitLogin : FormEventHandler = async (event) => {
-			event.preventDefault();
+	const submitLogin: FormEventHandler = async (event) => {
+		event.preventDefault();
 
-			try {
-        const email = (emailRef.current as HTMLInputElement).value;
-        const password = (passwordRef.current as HTMLInputElement).value;
-      
-				const response = await authService.login(email, password);
-        
-        if (response.status === 200) {
-          const user = await response.json();
-          console.log(user);
-          setUser(user);
-          navigate("/dashboard"); 
-        }
-        else setError("Veuillez remplir tout les champs.");
-			} catch (error) {
-				console.error(error);
-				setError("Une erreur est survenue..");
-			}
+		try {
+			const email = (emailRef.current as HTMLInputElement).value;
+			const password = (passwordRef.current as HTMLInputElement).value;
+
+			const response = await authService.login(email, password);
+
+			if (response.status === 200) {
+				const user = await response.json();
+				console.info(user);
+				auth?.setUser(user);
+				navigate("/dashboard");
+			} else setError("Veuillez remplir tout les champs.");
+		} catch (error) {
+			console.error(error);
+			setError("Une erreur est survenue..");
 		}
+	};
 
 	return (
 		<>

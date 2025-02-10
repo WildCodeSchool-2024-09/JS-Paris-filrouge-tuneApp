@@ -9,8 +9,8 @@ import type { User } from "../types/user.type";
 
 function Albums() {
 	const navigate = useNavigate();
-	const [title, setTitle] = useState("");
-	const [error, setError] = useState("");
+	const [title, setTitle] = useState<string>("");
+	const [error, setError] = useState<string>("");
 	const { user } = useContext(Auth) as authContextType;
 
 	const submitAlbum: FormEventHandler = async (event) => {
